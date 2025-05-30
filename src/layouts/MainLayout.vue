@@ -1,9 +1,10 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-btn
-          flat
+          v-if="!$q.screen.gt.md" flat
           dense
           round
           icon="menu"
@@ -12,10 +13,13 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          <img src="~assets/logo.png" alt="SGBR Logo" style="height: 42px; vertical-align: middle;">
+          <span class="q-ml-sm"></span>
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div class="flex items-center">
+          <span class="q-mr-sm">Caio Pacheco</span> <q-avatar icon="person" color="white" text-color="black" />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -23,80 +27,99 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-    >
+      :width="250"
+      :breakpoint="992" class="bg-grey-10 text-black">
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
+        <q-item-label header class="text-white text-h6">
+          Giphy Explorer
         </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item clickable v-ripple exact :to="{ name: 'home' }" class="nav-item" @click="closeDrawerOnMobile">
+          <q-item-section avatar>
+            <q-icon name="home" />
+          </q-item-section>
+          <q-item-section>
+            Home
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple exact :to="{ name: 'favorites' }" class="nav-item" @click="closeDrawerOnMobile">
+          <q-item-section avatar>
+            <q-icon name="favorite" />
+          </q-item-section>
+          <q-item-section>
+            Favoritos
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple exact :to="{ name: 'categories' }" class="nav-item" @click="closeDrawerOnMobile">
+          <q-item-section avatar>
+            <q-icon name="category" />
+          </q-item-section>
+          <q-item-section>
+            Categorias
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple exact :to="{ name: 'about' }" class="nav-item" @click="closeDrawerOnMobile">
+          <q-item-section avatar>
+            <q-icon name="info" />
+          </q-item-section>
+          <q-item-section>
+            Sobre
+          </q-item-section>
+        </q-item>
+
       </q-list>
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { ref } from 'vue';
+import { useQuasar } from 'quasar';
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+const $q = useQuasar();
+
+// O leftDrawerOpen deve iniciar como true para que o show-if-above funcione
+// e o drawer seja visível em telas maiores.
+const leftDrawerOpen = ref(true);
+
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+
+// Fecha o drawer apenas se estiver em uma tela que o torne um overlay (menor que breakpoint 'lg')
+function closeDrawerOnMobile() {
+  if ($q.screen.lt.lg && leftDrawerOpen.value) {
+    leftDrawerOpen.value = false;
   }
-]
-
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
+
+<style scoped>
+/* Estilos específicos para este layout */
+
+.nav-item {
+  color: #0d6fdf; 
+}
+
+.nav-item .q-icon {
+  color: #0d6fdf;
+}
+
+.nav-item.q-router-link--exact-active {
+  background-color: rgba(33, 150, 243, 0.2);
+  color: #0d6fdf;
+  font-weight: bold;
+}
+
+.q-toolbar-title img {
+  margin-right: 8px;
+}
+</style>
