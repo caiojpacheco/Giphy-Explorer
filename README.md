@@ -37,11 +37,11 @@ Uma aplicação web front-end que permite aos usuários explorar GIFs do GIPHY, 
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git](https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git)
+    git clone https://github.com/caiojpacheco/Giphy-Explorer.git
     ```
 2.  **Navegue até a pasta do projeto:**
     ```bash
-    cd SEU_REPOSITORIO
+    cd giphy-explorer
     ```
 3.  **Instale as dependências:**
     ```bash
@@ -65,8 +65,8 @@ Uma aplicação web front-end que permite aos usuários explorar GIFs do GIPHY, 
 
 ## Autor
 
-Seu Nome
-Seu Contato (Opcional, ex: LinkedIn, E-mail)
+Caio J Pacheco
+caiojunqueirapacheco@gmail.com
 
 ## Considerações Finais
 
